@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/data/易建联离队.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lib/ansj_seg-5.0.2-all-in-one.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lib/ansj_seg-5.0.2-sources.jar" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

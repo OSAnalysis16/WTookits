@@ -20,7 +20,7 @@ public class MainHolder {
         for(TermWeightingFactory i: TermWeightingFactory.termWeightFactories){
             termWeightingFactoryMap.put(i.getName(), i);
         }
-        String termWeightStr = configuration.termWeightStr;
+        String termWeightStr = configuration.getTermWeightStr();
         termWeighting = termWeightingFactoryMap.get(termWeightStr).getTermWeightingInstance();
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+//import java.util.function.Function;
 
 /**
  * Created by Glad on 2016/10/25.
@@ -66,8 +66,12 @@ public class UnsupervisedDH {
                 String fileName = fileIndex.get(i);
                 sb.append(fileName + "\t");
                 Map<String, Double> sorted = MapComparator.sortByValue(result.get(i));
-                sorted.forEach((k, v) -> sb.append(k + ":" + v));
-                sb.append("\n");
+//                sorted.forEach((k, v) -> sb.append(k + ":" + v + ","));
+                for (Map.Entry<String, Double> stringDoubleEntry : sorted.entrySet()) {
+                    sb.append(stringDoubleEntry.getKey() + ":" + stringDoubleEntry.getValue() + ",");
+                }
+                sb.deleteCharAt(sb.length() - 1);
+                sb.append("\n\n");
             }
             pw.write(sb.toString());
             pw.flush();

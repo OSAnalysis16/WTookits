@@ -12,7 +12,23 @@ public class Configuration {
     private Properties properties;
     private String configNowPath;
 
-    public static String termWeightStr = "";
+    private String dirPath;
+
+    public String getDestPath() {
+        return destPath;
+    }
+
+    private String destPath;
+
+    public String getTermWeightStr() {
+        return termWeightStr;
+    }
+
+    public String getDirPath() {
+        return dirPath;
+    }
+
+    private String termWeightStr = "";
 
     private Configuration(String configPath){
         InputStream is =  Thread.currentThread().getContextClassLoader().getResourceAsStream(configPath);
@@ -20,6 +36,8 @@ public class Configuration {
         try {
             properties.load(is);
             termWeightStr = properties.getProperty("TermWeighting");
+            dirPath = properties.getProperty("DirPath");
+            destPath = properties.getProperty("DestPath");
 
             configNowPath = configPath;
         } catch (IOException e) {

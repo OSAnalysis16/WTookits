@@ -16,14 +16,15 @@ public class MapComparator {
     //value must be int or double or float
     public static Map sortByValue(Map map) {
         List list = new LinkedList(map.entrySet());
-        Collections.sort(list, (o1, o2) -> {
-            return -((Comparable) ((Map.Entry) o1).getValue())
-                        .compareTo(((Map.Entry) o2).getValue());
-//                new Comparator() {
-//            public int compare(Object o1, Object o2) {
-//                return -((Comparable) ((Map.Entry) o1).getValue())
+        Collections.sort(list,
+//                (o1, o2) -> {
+//            return -((Comparable) ((Map.Entry) o1).getValue())
 //                        .compareTo(((Map.Entry) o2).getValue());
-//            }
+                new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return -((Comparable) ((Map.Entry) o1).getValue())
+                        .compareTo(((Map.Entry) o2).getValue());
+            }
         });
         Map result = new LinkedHashMap();
 
