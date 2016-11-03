@@ -16,4 +16,5 @@ public class IDF implements TermWeighting{
     public List<Map<String, Double>> calculate(List<List<String>> splitedWords) {
         return null;
     }
+
 }

@@ -23,4 +23,10 @@ public class IDFFactory implements TermWeightingFactory{
     public TermWeighting getTermWeightingInstance() {
         return new IDF();
     }
+
+    @Override
+    public Boolean isSupervised() {
+        return false;
+    }
+
 }

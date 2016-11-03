@@ -12,6 +12,7 @@ import java.util.List;
 public interface TermWeightingFactory {
     String getName();
     TermWeighting getTermWeightingInstance();
+    Boolean isSupervised();
 
     List<TermWeightingFactory> termWeightFactories = new ArrayList<TermWeightingFactory>(
             Arrays.asList(IDFFactory.getIdfFactory(), TFFactory.getTFFactory()));

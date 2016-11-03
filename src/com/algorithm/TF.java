@@ -64,6 +64,7 @@ public class TF implements TermWeighting {
         }
         return termWeightingMap;
     }
+
 //    test
 //    public static void main(String[] args) {
 //        new TF();

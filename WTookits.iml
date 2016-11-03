@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="ansj_seg-5.0.2-sources" level="project" />
+    <orderEntry type="library" name="ansj_seg-5.0.2-all-in-one" level="project" />
   </component>
 </module>

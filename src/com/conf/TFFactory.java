@@ -24,4 +24,10 @@ public class TFFactory implements TermWeightingFactory{
     public TermWeighting getTermWeightingInstance() {
         return new TF();
     }
+
+    @Override
+    public Boolean isSupervised() {
+        return false;
+    }
+
 }

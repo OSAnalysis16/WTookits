@@ -11,11 +11,11 @@ import java.util.Map;
  */
 public class SupervisedDH extends UnsupervisedDH{
 
-    protected Map<String, String> fileToCato = null;
+    private Boolean isSupervised = true;
 
     public SupervisedDH(String dirPath, String categoryPath) {
         super(dirPath);
-        fileToCato = new HashMap<>();
+        fileToCate = new HashMap<>();
         loadCatogoryMap(categoryPath);
     }
 
@@ -26,7 +26,7 @@ public class SupervisedDH extends UnsupervisedDH{
             String temp = "";
             while ((temp = reader.readLine()) != null){
                 String[] fields = temp.split("\t");
-                fileToCato.put(fields[0], fields[1]);
+                fileToCate.put(fields[0], fields[1]);
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -41,4 +41,8 @@ public class SupervisedDH extends UnsupervisedDH{
         }
     }
 
+    @Override
+    public Map<String, String> getFileToCate() {
+        return fileToCate;
+    }
 }
