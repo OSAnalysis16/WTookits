@@ -57,7 +57,7 @@ public class UnsupervisedDH extends DataHolder{
 
     @Override
     public Map<String, String> getFileToCate() {
-        System.out.println("Warning: The actually term weighting is unsupervised. The return result is null.");
+        System.out.println("The actually term weighting is unsupervised. The return result is null.");
         return fileToCate;
     }
 }

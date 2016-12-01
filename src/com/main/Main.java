@@ -43,8 +43,9 @@ public class Main {
         System.out.println(dh.getClass().getName());
 
         List<Map.Entry<String, String>> data = dh.getData();
+        Map<String, String> fileToCate = dh.getFileToCate();
         List<List<String>> splitData = tw.split(data);
-        List<Map<String, Double>> calculate = tw.calculate(splitData);
+        List<Map<String, Double>> calculate = tw.calculate(splitData, fileToCate);
         dh.writeResult(calculate, conf.getDestPath());
     }
 }

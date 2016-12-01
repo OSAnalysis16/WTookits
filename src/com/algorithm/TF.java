@@ -9,37 +9,7 @@ import org.ansj.splitWord.analysis.ToAnalysis;
  * Created by Glad on 2016/10/24.
  * Edited by qibai on 2016/10/25.
  */
-public class TF implements TermWeighting {
-
-    static List<List<String>> splitTermMap = null;
-    static List<Map<String, Double>> termWeightingMap = null;
-
-    public TF() {
-        splitTermMap = new ArrayList<>();
-        termWeightingMap = new ArrayList<>();
-    }
-
-    /**
-     * split word in the document
-     * @param data
-     * @return
-     */
-    @Override
-    public List<List<String>> split(List<Map.Entry<String, String>> data) {
-        for (Map.Entry<String, String> document : data) {
-
-            List<Term> list = ToAnalysis.parse(document.getValue()).getTerms();
-            List<String> termName = new ArrayList<>();
-            for (Term term : list) {
-                String wordToken = term.getName();
-                if (!wordToken.trim().isEmpty() && wordToken.length() > 1) {
-                    termName.add(wordToken);
-                }
-            }
-            splitTermMap.add(termName);
-        }
-        return splitTermMap;
-    }
+public class TF extends TermWeighting {
 
     /**
      * calculate term weighting for each term in document
@@ -47,7 +17,8 @@ public class TF implements TermWeighting {
      * @return
      */
     @Override
-    public List<Map<String, Double>> calculate(List<List<String>> splitedWords) {
+    public List<Map<String, Double>> calculate(List<List<String>> splitedWords,
+                                               Map<String, String> fileToCate) {
 
         for (List<String> documentSplitedWord : splitedWords) {
             Map<String,Double> termCount = new HashMap<>();
@@ -68,7 +39,7 @@ public class TF implements TermWeighting {
 //    test
 //    public static void main(String[] args) {
 //        new TF();
-//        String str = "»¶Ó­Ê¹ÓÃansj_seg,(ansjÖĞÎÄ·Ö´Ê)ÔÚÕâÀïÈç¹ûÄãÓöµ½Ê²Ã´ÎÊÌâ¶¼¿ÉÒÔÁªÏµÎÒ.ÎÒÒ»¶¨¾¡ÎÒËùÄÜ.°ïÖú´ó¼Ò.ansj_seg¸ü¿ì,¸ü×¼,¸ü×ÔÓÉ!";
+//        String str = "ï¿½ï¿½Ó­Ê¹ï¿½ï¿½ansj_seg,(ansjï¿½ï¿½ï¿½Ä·Ö´ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½â¶¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½.ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.ansj_segï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½×¼,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!";
 //        List<Map.Entry<String, String>> test = new  ArrayList<Map.Entry<String, String>>();
 //        test.add(new AbstractMap.SimpleEntry("test", str));
 //        List<List<String>> split = split2(test);
