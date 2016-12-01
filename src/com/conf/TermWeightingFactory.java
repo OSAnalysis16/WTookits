@@ -15,5 +15,6 @@ public interface TermWeightingFactory {
     Boolean isSupervised();
 
     List<TermWeightingFactory> termWeightFactories = new ArrayList<TermWeightingFactory>(
-            Arrays.asList(IDFFactory.getIdfFactory(), TFFactory.getTFFactory()));
+            Arrays.asList(IDFFactory.getIdfFactory(), TFFactory.getTFFactory(),
+                    TF_ICFFactory.getTf_IcfFactory()));
 }

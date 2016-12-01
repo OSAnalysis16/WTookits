@@ -9,10 +9,10 @@ import java.util.Map;
 public interface Weighting {
     /**
      * calculate term weighting for each term in document
-     * @param splitedWords List<Document> and use List<word> represents a document
+     * @param splitedWords List<Entry<fileName, Document>> and use List<word> represents a document
      * @param fileToCate Map<FileName, category>
      *          file's category, if the term weighting algorithm is unsupervised, this field is null
-     * @return List<Document> and use Map<word, weighting> represents the term's weighting in the document
+     * @return Map<fileName, Map<term, weight>>, use Map<word, weighting> represents the term's weighting in the document
      */
-    List<Map<String, Double>> calculate(List<List<String>> splitedWords, Map<String, String> fileToCate);
+    Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate);
 }

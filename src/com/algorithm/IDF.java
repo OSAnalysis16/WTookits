@@ -9,7 +9,7 @@ import java.util.Map;
 public class IDF extends TermWeighting{
 
     @Override
-    public List<Map<String, Double>> calculate(List<List<String>> splitedWords,
+    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords,
                                                Map<String, String> fileToCate) {
         return null;
     }

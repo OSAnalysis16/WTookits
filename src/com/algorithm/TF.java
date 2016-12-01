@@ -13,25 +13,26 @@ public class TF extends TermWeighting {
 
     /**
      * calculate term weighting for each term in document
-     * @param splitedWords
+     * @param splitedWords List<Entry<fileName, Document>> and use List<word> represents a document
      * @return
      */
     @Override
-    public List<Map<String, Double>> calculate(List<List<String>> splitedWords,
+    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords,
                                                Map<String, String> fileToCate) {
 
-        for (List<String> documentSplitedWord : splitedWords) {
-            Map<String,Double> termCount = new HashMap<>();
+        for (Map.Entry<String, List<String>> document : splitedWords) {
+            List<String> documentSplitedWord = document.getValue();
+            Map<String, Double> termFrequency = new HashMap<>();
             for (String term : documentSplitedWord) {
 
-                if (termCount.containsKey(term)){
-                    Double count = termCount.get(term);
-                    termCount.put(term,count+1);
+                if (termFrequency.containsKey(term)){
+                    Double frequency = termFrequency.get(term);
+                    termFrequency.put(term, frequency + 1);
                 }else {
-                    termCount.put(term, 1.0);
+                    termFrequency.put(term, 1.0);
                 }
             }
-            termWeightingMap.add(termCount);
+            termWeightingMap.put(document.getKey(), termFrequency);
         }
         return termWeightingMap;
     }

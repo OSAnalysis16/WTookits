@@ -28,10 +28,10 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        String termWeightStr = "TF";
+        String termWeightStr = "TF-ICF";
         String dirPath = "C:\\Users\\Glad\\IdeaProjects\\WTookits\\data";
         String categoryPath = "";
-        String destPath = "";
+        String destPath = "C:\\Users\\Glad\\IdeaProjects\\WTookits\\data\\result.txt";
         Configuration conf = new Configuration(termWeightStr, dirPath, categoryPath, destPath);
 
         //  initial mainHolder. One conf match one mainHolder, and then match one termWeighting.
@@ -44,8 +44,8 @@ public class Main {
 
         List<Map.Entry<String, String>> data = dh.getData();
         Map<String, String> fileToCate = dh.getFileToCate();
-        List<List<String>> splitData = tw.split(data);
-        List<Map<String, Double>> calculate = tw.calculate(splitData, fileToCate);
+        List<Map.Entry<String, List<String>>> splitData = tw.split(data);
+        Map<String, Map<String, Double>> calculate = tw.calculate(splitData, fileToCate);
         dh.writeResult(calculate, conf.getDestPath());
     }
 }

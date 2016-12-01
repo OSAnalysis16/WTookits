@@ -18,7 +18,6 @@ public class UnsupervisedDH extends DataHolder{
 
     public UnsupervisedDH(String dirPath){
         data = new ArrayList<>();
-        fileIndex = new HashMap<>();
         loadFromFile(dirPath);
     }
 
@@ -39,10 +38,6 @@ public class UnsupervisedDH extends DataHolder{
             } catch (Exception e){
                 e.printStackTrace();
             }
-        }
-
-        for (int i = 0; i < data.size(); i++) {
-            fileIndex.put(i, data.get(i).getKey());
         }
 
         if(reader != null) {

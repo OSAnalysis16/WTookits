@@ -14,21 +14,21 @@ import java.util.Map;
  */
 public abstract class TermWeighting implements Weighting{
 
-    protected List<List<String>> splitTermMap = null;
-    protected List<Map<String, Double>> termWeightingMap = null;
+    protected List<Map.Entry<String, List<String>>> splitTermMap = null;
+    protected Map<String, Map<String, Double>> termWeightingMap = null;
 
     public TermWeighting(){
         splitTermMap = new ArrayList<>();
-        termWeightingMap = new ArrayList<>();
+        termWeightingMap = new HashMap<>();
     }
     /**
      * split word in the document
      * @param data
      * @return List<Document> and use List<word> represents a document
      */
-    public List<List<String>> split(List<Map.Entry<String, String>> data){
+    public List<Map.Entry<String, List<String>>> split(List<Map.Entry<String, String>> data){
         for (Map.Entry<String, String> document : data) {
-
+            String fileName = document.getKey();
             List<Term> list = ToAnalysis.parse(document.getValue()).getTerms();
             List<String> termName = new ArrayList<>();
             for (Term term : list) {
@@ -37,7 +37,8 @@ public abstract class TermWeighting implements Weighting{
                     termName.add(wordToken);
                 }
             }
-            splitTermMap.add(termName);
+            Map.Entry<String, List<String>> e = new HashMap.SimpleEntry<>(fileName, termName);
+            splitTermMap.add(e);
         }
         return splitTermMap;
     }
