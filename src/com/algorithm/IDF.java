@@ -14,4 +14,9 @@ public class IDF extends TermWeighting{
         return null;
     }
 
+    @Override
+    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate, Map<String, Long> fileInfo) {
+        return null;
+    }
+
 }

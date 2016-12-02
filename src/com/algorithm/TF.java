@@ -37,6 +37,11 @@ public class TF extends TermWeighting {
         return termWeightingMap;
     }
 
+    @Override
+    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate, Map<String, Long> fileInfo) {
+        return null;
+    }
+
 //    test
 //    public static void main(String[] args) {
 //        new TF();

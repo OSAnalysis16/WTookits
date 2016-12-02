@@ -43,6 +43,11 @@ public class TF_ICF extends TermWeighting{
 
     }
 
+    @Override
+    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate, Map<String, Long> fileInfo) {
+        return null;
+    }
+
     private Map<String, Double> tf(List<String> splitWords){
         Map<String, Double> termFrequency = new HashMap<>();
         for (String term : splitWords) {

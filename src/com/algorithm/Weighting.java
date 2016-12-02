@@ -15,4 +15,5 @@ public interface Weighting {
      * @return Map<fileName, Map<term, weight>>, use Map<word, weighting> represents the term's weighting in the document
      */
     Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate);
+    Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate,Map<String,Long> fileInfo);
 }
