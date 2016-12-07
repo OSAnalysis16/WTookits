@@ -1,6 +1,7 @@
 package com.algorithm;
 
 
+import javax.print.attribute.HashDocAttributeSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,11 @@ import java.util.Map;
 public class Okapi  extends TermWeighting{
     @Override
     public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords, Map<String, String> fileToCate,Map<String,Long> fileInfo) {
         Map<String, Map<String, Double>> tfAllfiles = new HashMap<>();
+        Map<String,Integer> doclen = new HashMap<>();
+        int filenum = splitedWords.size();// N
+        long dlsum = 0;
+        double avg_dl = 0; // avg_dl
         for (Map.Entry<String, List<String>> document : splitedWords) {
             String fileName = document.getKey();
             List<String> documentSplitedWord = document.getValue();
@@ -28,24 +28,21 @@ public class Okapi  extends TermWeighting{
             Map<String,Double> termFrequency = tf(documentSplitedWord);
             // TF in all file
             tfAllfiles.put(fileName, termFrequency);
+
+            dlsum+=document.getValue().size();
+
+            doclen.put(fileName,document.getValue().size());
         }
+
         // DF:document frequency
         Map<String, Integer> dfAllfiles = df(tfAllfiles);
-        //N && DL && avg_dl
-        int filenum = fileInfo.size();// N
-        long dlsum = 0;
-        double avg_dl = 0; // avg_dl
-        for(String key:fileInfo.keySet()){
-             dlsum += fileInfo.get(key);
-        }
         avg_dl = dlsum/filenum;
-        System.out.println(fileInfo);
-        System.out.println(avg_dl);
+
         //calculate the term weighting
         for (Map.Entry<String, Map<String, Double>> file : tfAllfiles.entrySet()) {
             Map<String, Double> tficf = new HashMap<>();
             Map<String, Double> termFrequency = file.getValue();
-            long dli = fileInfo.get(file.getKey());
+            int dli = doclen.get(file.getKey());
             for (Map.Entry<String, Double> term : termFrequency.entrySet()) {
                 String word = term.getKey();
                 int dfi = dfAllfiles.get(word);

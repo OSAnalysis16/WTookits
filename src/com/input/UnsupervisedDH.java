@@ -18,10 +18,7 @@ public class UnsupervisedDH extends DataHolder{
 
     public UnsupervisedDH(String dirPath){
         data = new ArrayList<>();
-        fileInfo = new HashMap<String, Long>();
         loadFromFile(dirPath);
-        //用于获取文本输和文本长，信息保存在fileInfo变量
-        loadFileINfo(dirPath);
     }
 
     private void loadFromFile(String dirPath) {
@@ -52,28 +49,9 @@ public class UnsupervisedDH extends DataHolder{
         }
     }
 
-    private void loadFileINfo(String dirpath){
-        File file= new File(dirpath);
-        if(!file.isDirectory()){
-            fileInfo.put(file.getName(), file.length());
-        }else if(file.isDirectory()){
-            String[] filelist=file.list();
-            for(int i = 0;i<filelist.length;i++){
-                loadFileINfo(dirpath + "\\" + filelist[i]);//递归
-            }
-        }
-    }
-
     @Override
     public Map<String, String> getFileToCate() {
         System.out.println("The actually term weighting is unsupervised. The file to category result is null.");
         return fileToCate;
     }
-
-    @Override
-    public Map<String, Long> getFileInfo() {
-        return fileInfo;
-    }
-
-
 }

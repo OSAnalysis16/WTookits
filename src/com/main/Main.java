@@ -28,14 +28,14 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        String termWeightStr = "TF-ICF";
+        String termWeightStr = "Okapi";
         String dirPath = "C:\\Users\\WooJetTrue\\desktop\\WTookits\\data";
         String categoryPath = "";
-        String destPath = "C:\\Users\\WooJetTrue\\desktop\\WTookits\\data\\result.txt";
+        String destPath = "C:\\Users\\WooJetTrue\\desktop\\WTookits\\result\\result.txt";
         Configuration conf = new Configuration(termWeightStr, dirPath, categoryPath, destPath);
 
         //  initial mainHolder. One conf match one mainHolder, and then match one termWeighting.
-        /*MainHolder mainHolder = new MainHolder(conf);
+        MainHolder mainHolder = new MainHolder(conf);
         TermWeighting tw = mainHolder.getTermWeighting();
         System.out.println(tw.getClass().getName());
 
@@ -45,13 +45,8 @@ public class Main {
         List<Map.Entry<String, String>> data = dh.getData();
         Map<String, String> fileToCate = dh.getFileToCate();
         List<Map.Entry<String, List<String>>> splitData = tw.split(data);
-        Map<String, Map<String, Double>> calculate = tw.calculate(splitData, fileToCate, dh.getFileInfo());
+        Map<String, Map<String, Double>> calculate = tw.calculate(splitData, fileToCate);
         dh.writeResult(calculate, conf.getDestPath());
-        */
-
-        MainHolder mainHolder = new MainHolder(conf);
-        //让mainHolder内部写入到目的result文件中，同时返回数据，以便用户是否要在内存中进一步操作。
-        Map<String, Map<String, Double> > calculate = mainHolder.calculateAndwrite();
 
     }
 }

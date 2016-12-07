@@ -15,7 +15,6 @@ import java.util.Map;
 public abstract class DataHolder {
     protected List<Map.Entry<String, String>> data = null;
     protected Map<String, String> fileToCate = null;
-    protected Map<String,Long> fileInfo = null;
     public List<Map.Entry<String, String>> getData(){
         return data;
     }
@@ -27,8 +26,6 @@ public abstract class DataHolder {
      * @return
      */
     public abstract Map<String, String> getFileToCate();
-
-    public abstract Map<String, Long> getFileInfo();
 
     public void writeResult(Map<String, Map<String, Double>> result, String outFile){
         try {
