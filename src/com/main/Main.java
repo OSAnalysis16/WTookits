@@ -28,10 +28,10 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        String termWeightStr = "TF-ICF";
-        String dirPath = "C:\\Users\\Glad\\IdeaProjects\\WTookits\\data";
+        String termWeightStr = "TF_IDF";
+        String dirPath = "D:\\Softwares\\Developments\\Java\\workplace\\WTookits\\data";
         String categoryPath = "";
-        String destPath = "C:\\Users\\Glad\\IdeaProjects\\WTookits\\data\\result.txt";
+        String destPath = "D:\\Softwares\\Developments\\Java\\workplace\\WTookits\\data\\result.txt";
         Configuration conf = new Configuration(termWeightStr, dirPath, categoryPath, destPath);
 
         //  initial mainHolder. One conf match one mainHolder, and then match one termWeighting.

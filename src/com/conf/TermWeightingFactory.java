@@ -16,5 +16,5 @@ public interface TermWeightingFactory {
 
     List<TermWeightingFactory> termWeightFactories = new ArrayList<TermWeightingFactory>(
             Arrays.asList(IDFFactory.getIdfFactory(), TFFactory.getTFFactory(),
-                    TF_ICFFactory.getTf_IcfFactory()));
+                    TF_ICFFactory.getTf_IcfFactory(), TF_IDFFactory.GetTf_idfFactory()));
 }
