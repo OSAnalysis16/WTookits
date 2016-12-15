@@ -9,17 +9,17 @@ import java.util.Map;
  */
 
 /**
- * IDFÊÇÄæÏòÎÄ¼şÆµÂÊ£¨inverse document frequency, IDF£©ÊÇÒ»¸ö´ÊµÄÆÕ±éÖØÒªĞÔµÄ¶ÈÁ¿¡£
- * Ä³Ò»¸öÌØ¶¨´ÊÓïµÄIDF£¬¿ÉÒÔÓÉ×ÜÎÄ¼şÊıÄ¿³ıÒÔ°üº¬¸Ã´ÊÓïµÄÎÄ¼şÊıÄ¿£¬ÔÙ½«µÃµ½µÄÉÌÈ¡¶ÔÊıµÃµ½¡£
- * Æä¹«Ê½ÈçÏÂËùÊ¾£º
- *               ×ÜÎÄ¼şÊıÄ¿                                                        |N|
+ * IDFæ˜¯é€†å‘æ–‡ä»¶é¢‘ç‡ï¼ˆinverse document frequency, IDFï¼‰æ˜¯ä¸€ä¸ªè¯çš„æ™®éé‡è¦æ€§çš„åº¦é‡ã€‚
+ * æŸä¸€ä¸ªç‰¹å®šè¯è¯­çš„IDFï¼Œå¯ä»¥ç”±æ€»æ–‡ä»¶æ•°ç›®é™¤ä»¥åŒ…å«è¯¥è¯è¯­çš„æ–‡ä»¶æ•°ç›®ï¼Œå†å°†å¾—åˆ°çš„å•†å–å¯¹æ•°å¾—åˆ°ã€‚
+ * å…¶å…¬å¼å¦‚ä¸‹æ‰€ç¤ºï¼š
+ *               æ€»æ–‡ä»¶æ•°ç›®                                                        |N|
  * idf_i = ----------------- = log ------------
- *          °üº¬µÚi¸ö´ÊµÄÎÄ¼şÊıÄ¿                                       | df_i |
+ *          åŒ…å«ç¬¬iä¸ªè¯çš„æ–‡ä»¶æ•°ç›®                                       | df_i |
  * 
- * @param splitedWords List<Map.Entry<String, List<STring>>> => List<Document> ²ÉÓÃList<words>±íÊ¾ÎÄ¼ş
- * @param fileToCate Map<String, String> ±íÊ¾ÎÄ¼şËùÊôÀà±ğ£¬µ±Ëã·¨ÊôÓÚÎŞ¼à¶½ÀàĞÍÊ±ºò¸Ã²ÎÊıÎªnull
+ * @param splitedWords List<Map.Entry<String, List<STring>>> => List<Document> é‡‡ç”¨List<words>è¡¨ç¤ºæ–‡ä»¶
+ * @param fileToCate Map<String, String> è¡¨ç¤ºæ–‡ä»¶æ‰€å±ç±»åˆ«ï¼Œå½“ç®—æ³•å±äºæ— ç›‘ç£ç±»å‹æ—¶å€™è¯¥å‚æ•°ä¸ºnull
  * 
- * @return Map<String, Map<String, Double>> ·µ»ØÃ¿Ò»¸öÎÄ¼şÖĞµÄÃ¿Ò»¸ö´ÊµÄÈ¨ÖØ
+ * @return Map<String, Map<String, Double>> è¿”å›æ¯ä¸€ä¸ªæ–‡ä»¶ä¸­çš„æ¯ä¸€ä¸ªè¯çš„æƒé‡
  * 
  * @author chen 2016/12/11
  *
@@ -30,14 +30,14 @@ public class IDF extends TermWeighting{
     @Override
     public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords,
                                                Map<String, String> fileToCate) {
-    	// Ê×ÏÈ»ñÈ¡×ÜÎÄ¼şÊıÄ¿¡£
+    	// é¦–å…ˆè·å–æ€»æ–‡ä»¶æ•°ç›®ã€‚
     	int docNum = splitedWords.size();
     	
-    	// »ñÈ¡Ã¿Ò»¸öÎÄ¼şÖĞµÄÃ¿Ò»¸ö´Ê³öÏÖµÄÎÄ¼şÊı¡£
+    	// è·å–æ¯ä¸€ä¸ªæ–‡ä»¶ä¸­çš„æ¯ä¸€ä¸ªè¯å‡ºç°çš„æ–‡ä»¶æ•°ã€‚
     	Map<String, Map<String, Integer>> wordDocNum = new HashMap<>();
     	CalcWordDocNum( splitedWords, wordDocNum );
     	
-    	// ¼ÆËãÃ¿Ò»¸öÎÄ¼şµÄÃ¿Ò»¸ö´ÊµÄidf¡£
+    	// è®¡ç®—æ¯ä¸€ä¸ªæ–‡ä»¶çš„æ¯ä¸€ä¸ªè¯çš„idfã€‚
     	CalcIDF(docNum, wordDocNum, termWeightingMap);
     	
         return termWeightingMap;

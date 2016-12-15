@@ -7,19 +7,19 @@ import java.util.HashMap;
 
 /**
  * class TF_IDF.
- * TF-IDF£¨term ferquency - inverse document frequency£©ÊÇÒ»ÖÖÓÃÓÚ¼ìË÷µÄ¼ÓÈ¨¼¼Êõ£¬¿ÉÒÔÆÀ¹ÀÒ»¸ö´Ê¶ÔÓÚÒ»¸öÎÄ¼ş¼¯»òÕßÓïÁÏ¿âµÄÖØÒªĞÔ¡£¡®
- * TF-IDF°üº¬ÓĞÁ½Ïî£¬Ò»ÏîÊÇTFÊÇ´ÊÆµ£¬Ö¸µÄÊÇÄ³Ò»¸ö¸ø¶¨µÄ´ÊÔÚÎÄ±¾ÖĞ³öÏÖµÄ´ÎÊı£¨¿ÉÒÔ¹éÒ»»¯Ò²¿ÉÒÔ²»¹éÒ»»¯£©¡£
- * ÁíÒ»ÏîÊÇIDF£¬ÄæÏòÎÄ±¾ÆµÂÊ£¬ÊÇÒ»¸ö´ÊÓïµÄÆÕ±éÖØÒªĞÔ¶ÈÁ¿¡£
- * TF-IDF = TF * IDF¡£
- * Æä¼ÆËã¹«Ê½ÈçÏÂËùÊ¾£º
- *                      ´ÊÔÚÎÄ±¾ÖĞ³öÏÖµÄÆµÂÊ                             ×ÜÎÄ¼şÊıÄ¿                                             n_i            | N |
+ * TF-IDFï¼ˆterm ferquency - inverse document frequencyï¼‰æ˜¯ä¸€ç§ç”¨äºæ£€ç´¢çš„åŠ æƒæŠ€æœ¯ï¼Œå¯ä»¥è¯„ä¼°ä¸€ä¸ªè¯å¯¹äºä¸€ä¸ªæ–‡ä»¶é›†æˆ–è€…è¯­æ–™åº“çš„é‡è¦æ€§ã€‚â€˜
+ * TF-IDFåŒ…å«æœ‰ä¸¤é¡¹ï¼Œä¸€é¡¹æ˜¯TFæ˜¯è¯é¢‘ï¼ŒæŒ‡çš„æ˜¯æŸä¸€ä¸ªç»™å®šçš„è¯åœ¨æ–‡æœ¬ä¸­å‡ºç°çš„æ¬¡æ•°ï¼ˆå¯ä»¥å½’ä¸€åŒ–ä¹Ÿå¯ä»¥ä¸å½’ä¸€åŒ–ï¼‰ã€‚
+ * å¦ä¸€é¡¹æ˜¯IDFï¼Œé€†å‘æ–‡æœ¬é¢‘ç‡ï¼Œæ˜¯ä¸€ä¸ªè¯è¯­çš„æ™®éé‡è¦æ€§åº¦é‡ã€‚
+ * TF-IDF = TF * IDFã€‚
+ * å…¶è®¡ç®—å…¬å¼å¦‚ä¸‹æ‰€ç¤ºï¼š
+ *                      è¯åœ¨æ–‡æœ¬ä¸­å‡ºç°çš„é¢‘ç‡                             æ€»æ–‡ä»¶æ•°ç›®                                             n_i            | N |
  * TF-IDF = TF * IDF = ---------------- * --------------- = ----------- * log-----------
- *                       ËùÓĞ´Ê³öÏÖµÄ×Ü´ÎÊı                       °üº¬Ä³¸ö´ÊµÄÎÄ¼şÊıÄ¿                sum( n_i )        | df_i |
+ *                       æ‰€æœ‰è¯å‡ºç°çš„æ€»æ¬¡æ•°                       åŒ…å«æŸä¸ªè¯çš„æ–‡ä»¶æ•°ç›®                sum( n_i )        | df_i |
  *                       
- * @param splitedWords List<Map.Entry<String, List<STring>>> => List<Document> ²ÉÓÃList<words>±íÊ¾ÎÄ¼ş
- * @param fileToCate Map<String, String> ±íÊ¾ÎÄ¼şËùÊôÀà±ğ£¬µ±Ëã·¨ÊôÓÚÎŞ¼à¶½ÀàĞÍÊ±ºò¸Ã²ÎÊıÎªnull
+ * @param splitedWords List<Map.Entry<String, List<STring>>> => List<Document> é‡‡ç”¨List<words>è¡¨ç¤ºæ–‡ä»¶
+ * @param fileToCate Map<String, String> è¡¨ç¤ºæ–‡ä»¶æ‰€å±ç±»åˆ«ï¼Œå½“ç®—æ³•å±äºæ— ç›‘ç£ç±»å‹æ—¶å€™è¯¥å‚æ•°ä¸ºnull
  * 
- * @return Map<String, Map<String, Double>> ·µ»ØÃ¿Ò»¸öÎÄ¼şÖĞµÄÃ¿Ò»¸ö´ÊµÄÈ¨ÖØ
+ * @return Map<String, Map<String, Double>> è¿”å›æ¯ä¸€ä¸ªæ–‡ä»¶ä¸­çš„æ¯ä¸€ä¸ªè¯çš„æƒé‡
  * 
  * @author chen 2016/12/11
  *
@@ -30,15 +30,15 @@ public class TF_IDF extends TermWeighting {
 	@Override
 	public Map<String, Map<String, Double>> calculate(List<Entry<String, List<String>>> splitedWords,
 			Map<String, String> fileToCate) {
-		// Ê×ÏÈ¼ÆËãtf¡£
+		// é¦–å…ˆè®¡ç®—tfã€‚
 		Map<String, Map<String, Double>> tfDoc = new HashMap<>();
 		CalcTF(splitedWords, tfDoc);
 		
-		// È»ºó¼ÆËãidf¡£
+		// ç„¶åè®¡ç®—idfã€‚
 		Map<String, Map<String, Double>> idfDoc = new HashMap<>();
 		CalcIDF(splitedWords, idfDoc);
 		
-		// ÔÙ¼ÆËãtf-idf¡£
+		// å†è®¡ç®—tf-idfã€‚
 		CalcTF_IDF(tfDoc, idfDoc, termWeightingMap);
 		
 		return termWeightingMap;
@@ -66,7 +66,7 @@ public class TF_IDF extends TermWeighting {
 			docWordCount.put(doc.getKey(), count);
 		}
 		
-		// ¹éÒ»»¯¡£
+		// å½’ä¸€åŒ–ã€‚
 		for (String filename : tf_doc.keySet()){
 			Map<String, Double> freq = tf_doc.get(filename);
 			
@@ -80,14 +80,14 @@ public class TF_IDF extends TermWeighting {
 	}
 	
 	private void CalcIDF(List<Map.Entry<String, List<String>>> splited_words, Map<String, Map<String, Double>> idf_doc){
-		// Ê×ÏÈ»ñÈ¡×ÜÎÄ¼şÊıÄ¿¡£
+		// é¦–å…ˆè·å–æ€»æ–‡ä»¶æ•°ç›®ã€‚
     	int docNum = splited_words.size();
     	
-    	// »ñÈ¡Ã¿Ò»¸öÎÄ¼şÖĞµÄÃ¿Ò»¸ö´Ê³öÏÖµÄÎÄ¼şÊı¡£
+    	// è·å–æ¯ä¸€ä¸ªæ–‡ä»¶ä¸­çš„æ¯ä¸€ä¸ªè¯å‡ºç°çš„æ–‡ä»¶æ•°ã€‚
     	Map<String, Map<String, Integer>> wordDocNum = new HashMap<>();
     	CalcWordDocNum( splited_words, wordDocNum );
     	
-    	// ¼ÆËãÃ¿Ò»¸öÎÄ¼şµÄÃ¿Ò»¸ö´ÊµÄidf¡£
+    	// è®¡ç®—æ¯ä¸€ä¸ªæ–‡ä»¶çš„æ¯ä¸€ä¸ªè¯çš„idfã€‚
     	CalcIDF(docNum, wordDocNum, idf_doc);
 	}
 	
