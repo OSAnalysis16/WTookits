@@ -28,10 +28,10 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        String termWeightStr = "LTU";
-        String dirPath = "C:\\Users\\zach\\workspace\\wtookit\\data";
-        String categoryPath = "";
-        String destPath = "C:\\Users\\zach\\workspace\\wtookit\\data\\result.txt";
+        String termWeightStr = "TF-IDF-ICSDF";
+        String dirPath = "C:\\Users\\huang\\Documents\\GitHub\\WTookits\\data\\supersived_data\\data";
+        String categoryPath = "C:\\Users\\huang\\Documents\\GitHub\\WTookits\\data\\supersived_data\\fileCate.txt";
+        String destPath = "C:\\Users\\huang\\Documents\\GitHub\\WTookits\\data\\supersived_data\\result.txt";
         Configuration conf = new Configuration(termWeightStr, dirPath, categoryPath, destPath);
 
         //  initial mainHolder. One conf match one mainHolder, and then match one termWeighting.
