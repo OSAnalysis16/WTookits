@@ -1,113 +1,126 @@
 package com.algorithm;
 
-import org.ansj.domain.Term;
-import org.ansj.splitWord.analysis.ToAnalysis;
-
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by cassyang on 2016/11/30.
  */
-public class TF_RF implements TermWeighting {
+public class TF_RF extends TermWeighting {
 
-    ///分词之后获得的字符数组
-    static List<List<String>> splitTermMap = null;
-    ///计算字符的TF
-    static List<Map<String, Double>> termWeightingTFMap = null;
-
-    ///构造函数在新建一个TF_RF算法时需要将
-    ///splitTermMap和termWeightingTFMap重新初始化
-    public TF_RF() {
-        splitTermMap = new ArrayList<>();
-        termWeightingTFMap = new ArrayList<>();
-    }
+    /*
+    * Created by cassyang on 2016/11/30.
+    * */
     @Override
-    public List<List<String>> split(List<Map.Entry<String, String>> data) {
-    ///////对多个文档进行分词
-        for (Map.Entry<String, String> document : data) {
-            ////////对单个文档进行分词
-            List<Term> list = ToAnalysis.parse(document.getValue()).getTerms();
-            List<String> termName = new ArrayList<>();
-            for (Term term : list) {
-                String wordToken = term.getName();
-                if (!wordToken.trim().isEmpty() && wordToken.length() > 1) {
-                    termName.add(wordToken);
-                }
-            }
-            splitTermMap.add(termName);
+    public Map<String, Map<String, Double>> calculate(List<Map.Entry<String, List<String>>> splitedWords,
+                                                      Map<String, String> fileToCate) {
+        ///////储存所有文件的tf的结构///////
+        Map<String, Map<String, Double>> tfAllfiles =new HashMap<>();
+        ///////循环所有文件进行分词///////
+        for(Map.Entry<String,List<String>> document : splitedWords){
+            String fileName = document.getKey();
+            List<String> fileWords = document.getValue();
+            ////////计算tf（词频////////
+            Map<String, Double> termFrequency = calculateTf(fileWords);
+            ////////所有文章TF////////
+            tfAllfiles.put(fileName, termFrequency);
         }
-        return splitTermMap;
+        //////计算每个组别里面的所有词频//////
+        Map<String, Map<String, Integer>> allDFofClasses = calculateAllDf(splitedWords, fileToCate);
+        //////计算tf_rf//////
+        calcutateTF_RF(tfAllfiles, allDFofClasses, termWeightingMap);
+
+        return termWeightingMap;
     }
 
-    @Override
-    ////////计算tf（词频）
-    public List<Map<String, Double>> calculate(List<List<String>> splitedWords) {
-        ///////循环所有分得的词
-        ///////不同来源的词分开记录
-        for (List<String> documentSplitedWord : splitedWords) {
-            ////////遍历所有词通过Map<String ,Double >来记录词频
-            Map<String,Double> termCount = new HashMap<>();
-            for (String term : documentSplitedWord) {
+    ////////计算tf（词频）////////
+    private Map<String, Double> calculateTf(List<String> splitedWords) {
+        Map<String, Double> termFrequency = new HashMap<>();
+        ///////循环所有分得的词///////
+        ///////不同来源的词分开记录///////
+        for (String term : splitedWords) {
 
-                if (termCount.containsKey(term)){
-                    Double count = termCount.get(term);
-                    termCount.put(term,count+1);
-                }else {
-                    termCount.put(term, 1.0);
-                }
+            if (termFrequency.containsKey(term)){
+                Double count = termFrequency.get(term);
+                termFrequency.put(term,count+1);
+            }else {
+                termFrequency.put(term, 1.0);
             }
-            termWeightingTFMap.add(termCount);
         }
+       return termFrequency;
+
         /////训练集进行训练得到结果
-        /////获得参数A和B
-        /////得到最终结果
-        File fashion = new File("C:/Users/huang/git/WTookits/data/supersived_data/fashion");
-        File science = new File("C:/Users/huang/git/WTookits/data/supersived_data/science");
-        File sport = new File("C:/Users/huang/git/WTookits/data/supersived_data/sport");
 
-        //File outfile = new File("C:/Users/huang/git/WTookits/data/supersived_data/fileCate.txt");
-
-        String[] fas = fashion.list();
-        String[] sci = science.list();
-        String[] spo = sport.list();
-        Map<String, String> fileCatetory = new HashMap<>();
-
-        for(String str : fas){
-            fileCatetory.put(str, "fashion");
-        }
-        for(String str : sci){
-            fileCatetory.put(str, "science");
-        }
-        for(String str : spo){
-            fileCatetory.put(str, "sport");
-        }
-
-        try{
-            PrintWriter pw = new PrintWriter("C:/Users/huang/git/WTookits/data/supersived_data/fileCate.txt");
-            StringBuilder sb = new StringBuilder();
-
-            for(Map.Entry<String, String> term : fileCatetory.entrySet()){
-                sb.append(term.getKey()+"\t"+term.getValue()+"\n");
-            }
-            pw.write(sb.toString());
-            pw.flush();
-            pw.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-
-        //////计算tf_rf，其中
-        //////w(tk,cj) = tfk * log2(2+A/max(B,1));
-
-        return termWeightingTFMap;
     }
 
 
+    private Map<String, Map<String, Integer>> calculateAllDf(List<Map.Entry<String, List<String>>> splitedWords,
+                                Map<String, String> fileToCate){
+        //////计算每个组别里面的所有词频//////
+        /////第一个String为字////////
+        /////第二个String为类别//////
+        /////Integer为出现频数///////
+        Map<String, Map<String, Integer>> allDFofClasses = new HashMap<>();//每个词的类文档频率
+        //计算每一个字在每一个类的文档频率
+        for(Map.Entry<String, List<String>> document : splitedWords){
+            List<String> documentSplitedWord = document.getValue();//该篇文档的字s
+            HashSet<String> documentWordSet = new HashSet<String>(documentSplitedWord);//文档字去重
+
+            String documentName = document.getKey();//该篇文档的文档名
+            String documentCate = fileToCate.get(documentName);//该篇文档的类名
+
+            for(String word : documentWordSet){
+                if(allDFofClasses.containsKey(word)){
+                    Map<String, Integer> documentFrequencyOfClasses = allDFofClasses.get(word);//一个字在多个类的文档频率
+                    if(documentFrequencyOfClasses.containsKey(documentCate)){
+                        Integer docuFreOfClass = documentFrequencyOfClasses.get(documentCate);
+                        documentFrequencyOfClasses.put(documentCate, docuFreOfClass + 1);
+                    }else{
+                        documentFrequencyOfClasses.put(documentCate, 1);
+                    }
+                }else{
+                    Map<String, Integer> documentFrequencyOfClasses = new HashMap<>();//一个字在多个类的文档频率
+                    documentFrequencyOfClasses.put(documentCate, 1);
+                    allDFofClasses.put(word, documentFrequencyOfClasses);
+                }
+            }
+        }
+        return allDFofClasses;
+
+    }
+    private void calcutateTF_RF(Map<String, Map<String, Double>> tfAllfiles,
+                                Map<String, Map<String, Integer>> allDFofClasses,
+                                Map<String, Map<String, Double>> TF_RF){
+        for(Map.Entry<String, Map<String, Double>> file : tfAllfiles.entrySet()){
+            Map<String, Double> tf = file.getValue();
+            Map<String, Double> tfrf= new HashMap<>();
+            for(Map.Entry<String ,Double> term : tf.entrySet()){
+                String word = term.getKey();
+                /////获得参数A和B
+                /////得到最终结果
+                //////计算tf_rf，其中
+                //////w(tk,cj) = tfk * log2(2+A/max(B,1));
+                int a = 0,b=0;
+                if(allDFofClasses.containsKey(word)){
+                    Set<Map.Entry<String,Integer>> tfWord = allDFofClasses.get(word).entrySet();
+                    for(Iterator<Map.Entry<String,Integer>> iterator = tfWord.iterator();iterator.hasNext();)
+                    {
+                        if(a == 0)
+                            a = iterator.next().getValue();
+                        else
+                            b+=iterator.next().getValue();
+                    }
+                }
+                Double value = term.getValue()*Math.log(2 + (a / Math.max(b, 1)));
+                tfrf.put(word,value);
+            }
+            TF_RF.put(file.getKey(),tfrf);
+        }
+    }
 
 }
+
