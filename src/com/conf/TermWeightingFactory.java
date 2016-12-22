@@ -19,8 +19,12 @@ public interface TermWeightingFactory {
             Arrays.asList(IDFFactory.getIdfFactory(), TFFactory.getTFFactory(),
                     TF_ICFFactory.getTf_IcfFactory(), TF_IDFFactory.GetTf_idfFactory(),
 <<<<<<< HEAD
+<<<<<<< HEAD
                     LTUFactory.getLTUFactory(), OkapiFactory.getOkapiFactory());
 =======
                     LTUFactory.getLTUFactory(),TF_IDF_ICSDFFactory.getTf_Idf_IcsdfFactory()));
 >>>>>>> origin/hirion
+=======
+                    LTUFactory.getLTUFactory()， ACTFactory.getACTFactory()));
+>>>>>>> origin/ACT
 }
